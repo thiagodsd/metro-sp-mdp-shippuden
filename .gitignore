@@ -28,6 +28,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Vercel
+.vercel
+
 # Rust (for future MDP library)
 target/
 Cargo.lock
@@ -40,6 +43,10 @@ Cargo.lock
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Secrets and credentials
+.secrets
+.credentials
 
 # Data and logs
 data/**

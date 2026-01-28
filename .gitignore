@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+env/
+ENV/
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+.coverage
+.pytest_cache
+*.log
+.ipynb_checkpoints
+.ipython/
+
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Data and logs
+data/**
+logs/**
+!.gitkeep
+
+# Configuration
+conf/local/**
+conf/**/*credentials*
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.DS_Store
+
+# MCP
+.mcp.json
+
+# Build outputs
+*.so
+*.dylib
+*.dll
+CLAUDE.md
+.playwright-mcp/**/*
+AGENTS.md

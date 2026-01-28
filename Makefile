@@ -51,7 +51,7 @@ dev-front:
 	cd frontend && npm run dev
 
 dev-back:
-	cd backend && source venv/bin/activate && uvicorn app.main:app --reload
+	cd backend && uv run uvicorn app.main:app --reload
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
@@ -60,4 +60,4 @@ clean:
 	find . -type d -name "node_modules" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name ".next" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name "target" -exec rm -rf {} + 2>/dev/null || true
-	rm -rf backend/venv frontend/.next packages/*/target
+	rm -rf backend/.venv frontend/.next packages/*/target

@@ -8,10 +8,9 @@ app = FastAPI(
     version="0.1.0",
 )
 
-# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -45,18 +44,18 @@ class RouteResponse(BaseModel):
 
 @app.post("/api/route", response_model=RouteResponse)
 async def find_route(request: RouteRequest):
-    """
-    Find optimal route between two stations using MDP.
-
-    For now returns a dummy path. Will be replaced with actual MDP implementation.
-    """
-    # TODO: Implement actual MDP algorithm
-    # This is a placeholder that returns a simple path
+    """Find optimal route between two stations using MDP."""
+    # TODO: Implement MDP algorithm
+    # For now, returns a hardcoded valid path from Butantã to Luz
     dummy_path = [
-        request.start,
+        "butanta",
+        "pinheiros",
+        "faria-lima",
+        "fradique-coutinho",
+        "oscar-freire",
+        "paulista",
         "republica",
         "luz",
-        request.end,
     ]
 
     return RouteResponse(

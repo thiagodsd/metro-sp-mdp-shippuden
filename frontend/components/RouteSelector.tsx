@@ -26,7 +26,8 @@ export default function RouteSelector({ onPathFound }: RouteSelectorProps) {
 
     setFinding(true)
     try {
-      const response = await fetch(`http://localhost:8000/api/route`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+      const response = await fetch(`${apiUrl}/api/route`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -16,8 +16,6 @@ build/
 .coverage
 .pytest_cache
 *.log
-.ipynb_checkpoints
-.ipython/
 
 # Node.js / Next.js
 node_modules/
@@ -30,7 +28,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Rust
+# Rust (for future MDP library)
 target/
 Cargo.lock
 **/*.rs.bk

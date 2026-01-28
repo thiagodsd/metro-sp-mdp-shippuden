@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI(
     title="Metro SP MDP API",
@@ -31,9 +32,43 @@ async def health_check():
     return {"status": "healthy"}
 
 
-# Example endpoint - replace with your actual MDP logic
+class RouteRequest(BaseModel):
+    start: str
+    end: str
+
+
+class RouteResponse(BaseModel):
+    path: list[str]
+    distance: float | None = None
+    time: float | None = None
+
+
+@app.post("/api/route", response_model=RouteResponse)
+async def find_route(request: RouteRequest):
+    """
+    Find optimal route between two stations using MDP.
+
+    For now returns a dummy path. Will be replaced with actual MDP implementation.
+    """
+    # TODO: Implement actual MDP algorithm
+    # This is a placeholder that returns a simple path
+    dummy_path = [
+        request.start,
+        "republica",
+        "luz",
+        request.end,
+    ]
+
+    return RouteResponse(
+        path=dummy_path,
+        distance=None,
+        time=None,
+    )
+
+
 @app.get("/api/stations")
 async def get_stations():
+    """Get all metro stations."""
     return {
         "stations": [
             {"id": 1, "name": "Sé", "line": "blue"},

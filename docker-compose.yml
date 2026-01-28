@@ -8,12 +8,12 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=http://backend:8000
 
-  # backend:
-  #   build:
-  #     context: .
-  #     dockerfile: backend/Dockerfile
-  #   ports:
-  #     - "8000:8000"
-  #   environment:
-  #     - PORT=8000
-  #     - ENVIRONMENT=development
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - ENVIRONMENT=production

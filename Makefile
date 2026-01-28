@@ -1,27 +1,23 @@
-.PHONY: help dev dev-docker up down build clean docker-clean kill-ports dev-front dev-back dev-lib install-lib deploy-front deploy-back
+.PHONY: help dev up down build build-dev clean docker-clean kill-ports dev-front dev-back
 
 help:
-	@echo "Metro SP MDP - Comandos disponíveis:"
+	@echo "Metro SP MDP - Available commands:"
 	@echo ""
 	@echo "Docker:"
-	@echo "  make dev          - Dev com hot reload (Docker)"
-	@echo "  make up           - Produção otimizada (Docker)"
-	@echo "  make down         - Para Docker"
-	@echo "  make build        - Build produção"
-	@echo "  make docker-clean - Remove containers parados"
-	@echo "  make kill-ports   - Mata processos nas portas 3000 e 8000"
+	@echo "  make dev          - Dev with hot reload (Docker)"
+	@echo "  make up           - Production build (Docker)"
+	@echo "  make down         - Stop Docker containers"
+	@echo "  make build        - Build production frontend"
+	@echo "  make build-dev    - Build dev containers"
+	@echo "  make docker-clean - Remove stopped containers"
+	@echo "  make kill-ports   - Kill processes on ports 3000 and 8000"
 	@echo ""
-	@echo "Local (sem Docker):"
+	@echo "Local (without Docker):"
 	@echo "  make dev-front    - Dev frontend (npm)"
 	@echo "  make dev-back     - Dev backend (uvicorn)"
-	@echo "  make dev-lib      - Build lib Rust (maturin)"
-	@echo "  make install-lib  - Instala lib no backend"
 	@echo ""
-	@echo "Deploy:"
-	@echo "  make deploy-front - Deploy frontend GCP"
-	@echo "  make deploy-back  - Deploy backend GCP"
-	@echo ""
-	@echo "  make clean        - Limpa builds e cache"
+	@echo "Cleanup:"
+	@echo "  make clean        - Clean builds and cache"
 
 dev:
 	@docker-compose -f docker-compose.dev.yml down -v 2>/dev/null || true
@@ -56,18 +52,6 @@ dev-front:
 
 dev-back:
 	cd backend && source venv/bin/activate && uvicorn app.main:app --reload
-
-dev-lib:
-	cd packages/metro-mdp-lib && maturin develop --release
-
-install-lib:
-	cd backend && pip install -e ../packages/metro-mdp-lib
-
-deploy-front:
-	gcloud run deploy frontend --source ./frontend
-
-deploy-back:
-	gcloud run deploy backend --source . --dockerfile backend/Dockerfile
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true

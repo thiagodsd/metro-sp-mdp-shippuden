@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_API_URL=http://backend:8000
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -23,6 +23,7 @@ services:
       - PORT=8000
       - ENVIRONMENT=development
     volumes:
-      - ./backend:/app/backend
-      - ./packages:/app/packages
+      - ./backend/app:/app/app
+      - ./backend/data:/app/data
+      - ./packages:/packages
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload

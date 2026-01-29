@@ -54,8 +54,14 @@ export default function RouteSelector({ onPathFound }: RouteSelectorProps) {
 
   const isDisabled = !fromStation || !toStation || finding || stationsLoading
 
+  const handleClear = () => {
+    setFromStation('')
+    setToStation('')
+    onPathFound([])
+  }
+
   return (
-    <div className="bg-white py-2 px-5 flex gap-3 items-center justify-center">
+    <div className="mt-8 py-10 px-5 flex gap-8 items-center justify-center">
       <div>
         <label className="text-xs font-medium mb-1 block text-gray-700">
           From
@@ -65,7 +71,7 @@ export default function RouteSelector({ onPathFound }: RouteSelectorProps) {
           onValueChange={setFromStation}
           disabled={stationsLoading}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[240px]">
             <SelectValue placeholder="Select station" />
           </SelectTrigger>
           <SelectContent>
@@ -87,7 +93,7 @@ export default function RouteSelector({ onPathFound }: RouteSelectorProps) {
           onValueChange={setToStation}
           disabled={stationsLoading}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-[240px]">
             <SelectValue placeholder="Select station" />
           </SelectTrigger>
           <SelectContent>
@@ -103,9 +109,19 @@ export default function RouteSelector({ onPathFound }: RouteSelectorProps) {
       <Button
         onClick={handleFindPath}
         disabled={isDisabled}
+        size="default"
         className="mt-5"
       >
         {finding ? 'Finding...' : 'Find Path'}
+      </Button>
+
+      <Button
+        onClick={handleClear}
+        variant="outline"
+        size="default"
+        className="mt-5"
+      >
+        Clear
       </Button>
     </div>
   )

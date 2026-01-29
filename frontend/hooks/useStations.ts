@@ -41,6 +41,7 @@ export function useStations(): UseStationsReturn {
                 lat: row.lat,
                 lon: row.lon,
                 color: row.cor,
+                neigh: row.neigh || '',
               }))
 
             setStations(parsedStations)

@@ -20,7 +20,7 @@ help:
 	@echo "  make clean        - Clean builds and cache"
 
 dev:
-	@docker-compose -f docker-compose.dev.yml down -v 2>/dev/null || true
+	@docker-compose -f docker-compose.dev.yml down -v || true
 	docker-compose -f docker-compose.dev.yml up --build
 
 up:
@@ -42,10 +42,10 @@ docker-clean:
 	docker network prune -f
 
 kill-ports:
-	@echo "Matando processos nas portas 3000 e 8000..."
-	@lsof -ti:3000 | xargs kill -9 2>/dev/null || true
-	@lsof -ti:8000 | xargs kill -9 2>/dev/null || true
-	@echo "Portas liberadas!"
+	@echo "Killing processes on ports 3000 and 8000..."
+	@lsof -ti:3000 | xargs kill -9 || true
+	@lsof -ti:8000 | xargs kill -9 || true
+	@echo "Ports cleared"
 
 dev-front:
 	cd frontend && npm run dev
@@ -54,10 +54,10 @@ dev-back:
 	cd backend && uv run uvicorn app.main:app --reload
 
 clean:
-	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name ".pytest_cache" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name "node_modules" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name ".next" -exec rm -rf {} + 2>/dev/null || true
-	find . -type d -name "target" -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	find . -type d -name ".pytest_cache" -exec rm -rf {} +
+	find . -type d -name "*.egg-info" -exec rm -rf {} +
+	find . -type d -name "node_modules" -exec rm -rf {} +
+	find . -type d -name ".next" -exec rm -rf {} +
+	find . -type d -name "target" -exec rm -rf {} +
 	rm -rf backend/.venv frontend/.next packages/*/target

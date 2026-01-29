@@ -67,13 +67,3 @@ jobs:
       - name: Format check with Ruff
         working-directory: backend
         run: uv run ruff format --check .
-
-      - name: Type check with mypy (if configured)
-        working-directory: backend
-        run: |
-          if uv pip list | grep -q mypy; then
-            uv run mypy app
-          else
-            echo "mypy not installed, skipping type check"
-          fi
-        continue-on-error: true

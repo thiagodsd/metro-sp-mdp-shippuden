@@ -21,7 +21,7 @@ jobs:
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" \
             -H "Content-Type: application/json"
 
-      - name: Wait for deployment
+      - name: Show deployment info
         run: |
           echo "Deployment triggered on Render"
           echo "Check status at: https://dashboard.render.com"

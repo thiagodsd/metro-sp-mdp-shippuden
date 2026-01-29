@@ -4,6 +4,7 @@ export interface Station {
   lat: number
   lon: number
   color: string
+  neigh: string
 }
 
 export interface StationCSVRow {
@@ -12,4 +13,5 @@ export interface StationCSVRow {
   lat: number
   lon: number
   cor: string
+  neigh: string
 }

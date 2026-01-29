@@ -9,7 +9,7 @@ const Map = dynamic(() => import('@/components/Map'), {
 })
 
 export default function Home() {
-  const [path, setPath] = useState([])
+  const [path, setPath] = useState<string[]>([])
 
   return (
     <div className="flex flex-col h-screen relative">

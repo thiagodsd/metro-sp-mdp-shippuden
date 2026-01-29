@@ -2,7 +2,7 @@ services:
   - type: web
     name: metro-sp-mdp-backend
     runtime: docker
-    dockerfilePath: ./backend/Dockerfile
+    dockerfilePath: backend/Dockerfile
     dockerContext: .
     envVars:
       - key: PORT

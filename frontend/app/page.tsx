@@ -9,10 +9,10 @@ const Map = dynamic(() => import('@/components/Map'), {
 })
 
 export default function Home() {
-  const [path, setPath] = useState<string[]>([])
+  const [path, setPath] = useState([])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', position: 'relative' }}>
+    <div className="flex flex-col h-screen relative">
       <Map path={path} />
       <RouteSelector onPathFound={setPath} />
     </div>

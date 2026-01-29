@@ -39,20 +39,20 @@ export default function RouteSelector({ onPathFound }: RouteSelectorProps) {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to find route')
+        onPathFound([])
+        return
       }
 
       const data = await response.json()
-      onPathFound(data.path || [])
-    } catch (error) {
-      console.error('Error finding route:', error)
+      onPathFound(data.path)
+    } catch {
       onPathFound([])
     } finally {
       setFinding(false)
     }
   }
 
-  const isDisabled = !fromStation || !toStation || finding || stationsLoading
+  const isDisabled = !fromStation || !toStation || finding
 
   const handleClear = () => {
     setFromStation('')

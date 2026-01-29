@@ -1,6 +1,5 @@
 'use client'
 
-import { useMemo } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup, Polyline, useMap } from 'react-leaflet'
 import { LatLngBounds } from 'leaflet'
 import { useStations } from '@/hooks/useStations'
@@ -16,8 +15,6 @@ function ResetViewControl({ stations }: { stations: Station[] }) {
   const map = useMap()
 
   const handleReset = () => {
-    if (stations.length === 0) return
-
     const bounds = new LatLngBounds(
       stations.map(s => [s.lat, s.lon])
     )
@@ -41,42 +38,38 @@ function ResetViewControl({ stations }: { stations: Station[] }) {
 }
 
 function ConnectionLines({ stations, stationsMap }: { stations: Station[], stationsMap: Record<string, Station> }) {
-  const connections = useMemo(() => {
-    const lines: Array<[number, number][]> = []
-    const drawn = new Set<string>()
+  const lines: Array<[number, number][]> = []
+  const drawn = new Set<string>()
 
-    stations.forEach(station => {
-      if (!station.neigh) return
+  stations.forEach(station => {
+    if (!station.neigh) return
 
-      const neighborsStr = station.neigh
-        .replace(/[\[\]']/g, '')
-        .trim()
+    const neighborsStr = station.neigh
+      .replace(/[\[\]']/g, '')
+      .trim()
 
-      if (!neighborsStr) return
+    if (!neighborsStr) return
 
-      const neighbors = neighborsStr.split(',').map(n => n.trim())
+    const neighbors = neighborsStr.split(',').map(n => n.trim())
 
-      neighbors.forEach(neighborId => {
-        const neighbor = stationsMap[neighborId]
-        if (!neighbor) return
+    neighbors.forEach(neighborId => {
+      const neighbor = stationsMap[neighborId]
+      if (!neighbor) return
 
-        const connectionKey = [station.station, neighborId].sort().join('-')
-        if (drawn.has(connectionKey)) return
-        drawn.add(connectionKey)
+      const connectionKey = [station.station, neighborId].sort().join('-')
+      if (drawn.has(connectionKey)) return
+      drawn.add(connectionKey)
 
-        lines.push([
-          [station.lat, station.lon],
-          [neighbor.lat, neighbor.lon]
-        ])
-      })
+      lines.push([
+        [station.lat, station.lon],
+        [neighbor.lat, neighbor.lon]
+      ])
     })
-
-    return lines
-  }, [stations, stationsMap])
+  })
 
   return (
     <>
-      {connections.map((line, idx) => (
+      {lines.map((line, idx) => (
         <Polyline
           key={idx}
           positions={line}
@@ -93,12 +86,10 @@ function ConnectionLines({ stations, stationsMap }: { stations: Station[], stati
 }
 
 function PathPolyline({ path, stationsMap }: { path: string[], stationsMap: Record<string, Station> }) {
-  const pathCoords = useMemo(() => {
-    return path
-      .map(stationId => stationsMap[stationId])
-      .filter(station => station)
-      .map(station => [station.lat, station.lon] as [number, number])
-  }, [path, stationsMap])
+  const pathCoords = path
+    .map(stationId => stationsMap[stationId])
+    .filter(station => station)
+    .map(station => [station.lat, station.lon] as [number, number])
 
   if (pathCoords.length < 2) return null
 
@@ -121,8 +112,8 @@ export default function Map({ path = [] }: MapProps) {
     return (
       <div className="h-[70vh] flex items-center justify-center">
         <div className="text-center">
-          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" />
-          <p className="mt-2 text-gray-600">Loading stations...</p>
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-gray-900" />
+          <p className="mt-2 text-gray-600">Loading map data...</p>
         </div>
       </div>
     )
@@ -132,7 +123,7 @@ export default function Map({ path = [] }: MapProps) {
     return (
       <div className="h-[70vh] flex items-center justify-center">
         <div className="text-center text-red-600">
-          <p className="text-lg font-semibold">Failed to load stations</p>
+          <p className="text-lg font-semibold">Map unavailable</p>
           <p className="text-sm mt-1">{error}</p>
         </div>
       </div>

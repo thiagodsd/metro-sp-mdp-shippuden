@@ -4,18 +4,12 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from metro_mdp import fuzz_string, solve_route
 from pydantic import BaseModel, Field
-from slowapi import Limiter, _rate_limit_exceeded_handler
-from slowapi.errors import RateLimitExceeded
-from slowapi.util import get_remote_address
 
 stations_df = None
-
-# Rate limiter configuration
-limiter = Limiter(key_func=get_remote_address)
 
 
 @asynccontextmanager
@@ -37,10 +31,6 @@ app = FastAPI(
     docs_url=None if is_production else "/docs",
     redoc_url=None if is_production else "/redoc",
 )
-
-# Add rate limiter to app state
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # CORS configuration - restrict to frontend domain
 allowed_origins = [
@@ -83,8 +73,7 @@ class RouteResponse(BaseModel):
 
 
 @app.post("/api/route", response_model=RouteResponse)
-@limiter.limit("10/minute")
-async def find_route(request: Request, route_request: RouteRequest):
+async def find_route(route_request: RouteRequest):
     start_station = fuzz_string(route_request.start.lower().strip(), stations_df["station"])
     end_station = fuzz_string(route_request.end.lower().strip(), stations_df["station"])
 
@@ -110,7 +99,6 @@ async def find_route(request: Request, route_request: RouteRequest):
 
 
 @app.get("/api/stations")
-@limiter.limit("30/minute")
-async def get_stations(request: Request):
+async def get_stations():
     stations = stations_df[["station", "name", "line", "lat", "lon"]].to_dict(orient="records")
     return {"stations": stations, "count": len(stations)}

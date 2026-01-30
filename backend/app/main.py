@@ -84,9 +84,9 @@ class RouteResponse(BaseModel):
 
 @app.post("/api/route", response_model=RouteResponse)
 @limiter.limit("10/minute")
-async def find_route(http_request: Request, request: RouteRequest):
-    start_station = fuzz_string(request.start.lower().strip(), stations_df["station"])
-    end_station = fuzz_string(request.end.lower().strip(), stations_df["station"])
+async def find_route(request: Request, route_request: RouteRequest):
+    start_station = fuzz_string(route_request.start.lower().strip(), stations_df["station"])
+    end_station = fuzz_string(route_request.end.lower().strip(), stations_df["station"])
 
     try:
         # Add timeout to prevent long-running requests
@@ -103,7 +103,7 @@ async def find_route(http_request: Request, request: RouteRequest):
     if not path:
         raise HTTPException(
             status_code=404,
-            detail=f"No route found from {request.start} to {request.end}"
+            detail=f"No route found from {route_request.start} to {route_request.end}"
         )
 
     return RouteResponse(path=path)

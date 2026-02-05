@@ -77,6 +77,7 @@ async def find_route(route_request: RouteRequest):
     start_station = fuzz_string(route_request.start.lower().strip(), stations_df["station"])
     end_station = fuzz_string(route_request.end.lower().strip(), stations_df["station"])
 
+    # TODO: adicionar cache pra rotas mais comuns (luz-paulista, se-luz, etc)
     try:
         # Add timeout to prevent long-running requests
         path = await asyncio.wait_for(

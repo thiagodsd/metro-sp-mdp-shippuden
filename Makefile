@@ -20,7 +20,7 @@ help:
 	@echo "  make clean        - Clean builds and cache"
 
 dev:
-	@docker-compose -f docker-compose.dev.yml down -v || true
+	docker-compose -f docker-compose.dev.yml down -v
 	docker-compose -f docker-compose.dev.yml up --build
 
 up:
@@ -43,8 +43,8 @@ docker-clean:
 
 kill-ports:
 	@echo "Killing processes on ports 3000 and 8000..."
-	@lsof -ti:3000 | xargs kill -9 || true
-	@lsof -ti:8000 | xargs kill -9 || true
+	lsof -ti:3000 | xargs kill -9 2>/dev/null || true
+	lsof -ti:8000 | xargs kill -9 2>/dev/null || true
 	@echo "Ports cleared"
 
 dev-front:

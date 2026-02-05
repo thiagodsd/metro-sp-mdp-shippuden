@@ -2,7 +2,8 @@ FROM python:3.11-slim
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-COPY packages/metro-mdp-lib /packages/metro-mdp-lib
+# rust-powered python package
+COPY packages/metro-mdp-rust /packages/metro-mdp-rust
 
 WORKDIR /app
 

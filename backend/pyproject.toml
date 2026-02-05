@@ -26,4 +26,4 @@ target-version = "py311"
 select = ["E", "F", "I", "UP"]
 
 [tool.uv.sources]
-metro-mdp = { path = "../packages/metro-mdp-lib", editable = true }
+metro-mdp = { path = "../packages/metro-mdp-rust", editable = true }

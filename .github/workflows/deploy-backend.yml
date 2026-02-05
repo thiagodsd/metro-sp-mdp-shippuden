@@ -13,15 +13,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Trigger Render Deploy
+      - name: Trigger deploy
         run: |
           curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}" \
             -H "Content-Type: application/json"
 
-      - name: Show deployment info
+      - name: Show info
         run: |
           echo "Deployment triggered on Render"
           echo "Check status at: https://dashboard.render.com"

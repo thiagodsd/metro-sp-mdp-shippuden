@@ -23,7 +23,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist
+          args: --release --out dist --find-interpreter
           working-directory: packages/metro-mdp-rust
           manylinux: auto
       - name: upload wheels
@@ -46,7 +46,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist
+          args: --release --out dist --find-interpreter
           working-directory: packages/metro-mdp-rust
       - name: upload wheels
         uses: actions/upload-artifact@v5
@@ -68,7 +68,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist
+          args: --release --out dist --find-interpreter
           working-directory: packages/metro-mdp-rust
       - name: upload wheels
         uses: actions/upload-artifact@v5

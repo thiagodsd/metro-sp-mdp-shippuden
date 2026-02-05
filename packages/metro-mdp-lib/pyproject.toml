@@ -2,11 +2,31 @@
 name = "metro-mdp"
 version = "0.1.0"
 description = "MDP-based route planning for São Paulo Metro system"
+readme = "README.md"
 requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Thiago Duarte", email = "thiagodsd@users.noreply.github.com"}
+]
+keywords = ["metro", "mdp", "markov", "decision", "process", "route", "planning", "sao-paulo"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
 dependencies = [
     "pandas>=2.0.0",
     "thefuzz>=0.20.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/thiagodsd/metro-sp-mdp-shippuden"
+Repository = "https://github.com/thiagodsd/metro-sp-mdp-shippuden"
+Issues = "https://github.com/thiagodsd/metro-sp-mdp-shippuden/issues"
 
 [project.optional-dependencies]
 dev = [

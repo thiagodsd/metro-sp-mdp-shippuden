@@ -1,0 +1,40 @@
+[build-system]
+requires = ["maturin>=1.11,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "metro-mdp-rust"
+version = "0.1.0"
+description = "rust-powered mdp route planning for são paulo metro"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "Thiago Duarte", email = "thiagodsd@users.noreply.github.com"}
+]
+keywords = ["metro", "mdp", "rust", "performance", "route-planning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pandas>=2.0.0",
+    "thefuzz>=0.20.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/thiagodsd/metro-sp-mdp-shippuden"
+Repository = "https://github.com/thiagodsd/metro-sp-mdp-shippuden"
+Issues = "https://github.com/thiagodsd/metro-sp-mdp-shippuden/issues"
+
+[tool.maturin]
+python-source = "python"
+module-name = "metro_mdp._rust"

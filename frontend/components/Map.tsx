@@ -44,6 +44,7 @@ function ConnectionLines({ stations, stationsMap }: { stations: Station[], stati
   stations.forEach(station => {
     if (!station.neigh) return
 
+    // CSV vem com arrays serializados como "['a','b']", não JSON válido
     const neighborsStr = station.neigh
       .replace(/[\[\]']/g, '')
       .trim()

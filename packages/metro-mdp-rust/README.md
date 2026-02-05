@@ -37,10 +37,11 @@ print(route)
 
 ## performance
 
-expected gains vs pure python version:
-- 10-100x faster dfs
-- 5-50x faster cost calculations
-- 2-10x faster graph building
+ainda preciso benchmarkar direito, mas teoricamente rust deve ser mais rápido
+que python puro pra essa parte de busca no grafo.
+
+na prática pra grafos pequenos (~80 estações) a diferença é mínima - overhead de
+conversão python→rust cancela os ganhos. pra grafos maiores deveria compensar.
 
 ## dev
 

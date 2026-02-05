@@ -12,14 +12,14 @@ __all__ = [
 
 
 def fuzz_string(station: str, series: pd.Series) -> str:
-    """fuzzy match station name against series"""
+    """Fuzzy match station name against series."""
     matches = series.apply(lambda x: (x, fuzz.token_sort_ratio(x, station))).values
     best_match = sorted(matches, key=lambda t: t[1], reverse=True)[0]
     return best_match[0]
 
 
 def solve_route(data: pd.DataFrame, origin: str, destination: str) -> list[str]:
-    """find route between two stations using rust-powered dfs"""
+    """Find route between two stations using rust-powered DFS."""
     # build graph and positions from dataframe
     graph = {}
     positions = {}

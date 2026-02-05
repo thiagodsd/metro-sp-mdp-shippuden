@@ -45,7 +45,8 @@ export default function RouteSelector({ onPathFound }: RouteSelectorProps) {
 
       const data = await response.json()
       onPathFound(data.path)
-    } catch {
+    } catch (err) {
+      console.error('Failed to fetch route:', err)
       onPathFound([])
     } finally {
       setFinding(false)
